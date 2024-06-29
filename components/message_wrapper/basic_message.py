@@ -1,9 +1,11 @@
 class MessageWrapper:
 
-    def __init__(self, subject, content, attachments):
+    def __init__(self, subject, content, attachments, sender, receivers):
         self.subject = subject
         self.content = content
         self.attachments = attachments
+        self.sender = sender
+        self.receivers = receivers
 
 
     @property
@@ -32,4 +34,26 @@ class MessageWrapper:
     
     @attachments.setter
     def attachments(self, attachments):
-        return self.__attachments
+        self.__attachments = attachments
+
+
+    @property
+    def sender(self):
+        return self.__sender
+    
+    @sender.setter
+    def sender(self, sender):
+        if len(sender) == 0:
+            raise Exception('There must be a sender!')
+        self.__sender = sender
+    
+
+    @property
+    def receivers(self):
+        return self.__receivers
+    
+    @receivers.setter
+    def receivers(self, receivers):
+        if len(receivers) == 0:
+            raise Exception('There must be receivers to the email!')
+        self.__receivers = receivers
