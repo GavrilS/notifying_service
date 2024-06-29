@@ -17,7 +17,7 @@ class Service:
     
 
     @property
-    def smtp(self):
+    def smtp_server(self):
         return self.__smtp_server
 
 
@@ -68,4 +68,9 @@ class Service:
     
 
     def send_email(self):
-        pass
+        if len(self.message_obj.attachments) > 0:
+            message = self.prepare_email_with_attachments()
+        else:
+            message = self.prepare_email()
+
+        self.smtp_server.send_email()
