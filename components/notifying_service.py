@@ -73,4 +73,4 @@ class Service:
         else:
             message = self.prepare_email()
 
-        self.smtp_server.send_email()
+        self.smtp_server.send_email(message)
