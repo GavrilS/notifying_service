@@ -68,7 +68,7 @@ class Service:
     
 
     def send_email(self):
-        if len(self.message_obj.attachments) > 0:
+        if self.message_obj.attachments and len(self.message_obj.attachments) > 0:
             message = self.prepare_email_with_attachments()
         else:
             message = self.prepare_email()
