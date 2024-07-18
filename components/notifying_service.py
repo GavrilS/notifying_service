@@ -64,7 +64,10 @@ class Service:
     def _set_message_headers(self, message):
         message['Subject'] = self.message_obj.subject
         message['From'] = self.message_obj.sender
-        message['To'] = self.message_obj.receivers
+        if 'list' in str(type(self.message_obj.receivers)):
+            message['To'] = ', '.join(self.message_obj.receivers)
+        else:
+            message['To'] = self.message_obj.receivers
     
 
     def send_email(self):
@@ -73,4 +76,8 @@ class Service:
         else:
             message = self.prepare_email()
 
-        self.smtp_server.send_email(message)
+        # print('message: ', message.as_bytes())
+        # for receiver in self.message_obj.receivers:
+        #     self.smtp_server.send_email(self.message_obj.sender, receiver, message.as_bytes())
+        
+        self.smtp_server.send_email(self.message_obj.sender, self.message_obj.receivers, message.as_bytes())
